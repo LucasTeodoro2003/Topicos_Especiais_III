@@ -1,0 +1,4 @@
+command init project //
+docker-compose up -d
+docker ps
+
