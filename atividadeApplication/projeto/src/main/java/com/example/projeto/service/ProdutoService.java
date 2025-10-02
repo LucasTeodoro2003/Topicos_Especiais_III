@@ -8,26 +8,26 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProdutoService{
+public class ProdutoService {
     private final ProdutoRepository produtoRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository){
+    public ProdutoService(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
 
-    public List<Produto> listarProdutos(){
+    public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
     }
 
-    public Optional<Produto> buscarPorId(Long id){
+    public Optional<Produto> buscarPorId(Long id) {
         return produtoRepository.findById(id);
     }
 
-    public Produto salvarProduto(Produto produto){
+    public Produto salvarProduto(Produto produto) {
         return produtoRepository.save(produto);
     }
 
-    public void deletarProduto(Long id){
+    public void deletarProduto(Long id) {
         produtoRepository.deleteById(id);
     }
 }

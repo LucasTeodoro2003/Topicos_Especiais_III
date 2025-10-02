@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Cliente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --background-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --card-color: #ffffff;
+            --danger-color: #e74a3b;
+            --warning-color: #f6c23e;
+            --dark-color: #3a3b45;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eaecf4;
+        }
+
+        .app-title {
+            font-size: 28px;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(78, 115, 223, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .content {
+            margin-bottom: 40px;
+        }
+
+        .panel {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px;
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .panel-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-container {
+            padding: 20px;
+        }
+
+        .form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d3e2;
+            border-radius: 4px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            outline: none;
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+        }
+
+        .btn-secondary {
+            background-color: #858796;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #717384;
+        }
+
+        .app-footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #eaecf4;
+            color: #858796;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .app-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="app-title">Gerenciador de Clientes</h1>
+            <nav class="main-nav">
+                <a th:href="@{/clientes/listar}" class="nav-link">
+                    <i class="fas fa-users"></i> Clientes
+                </a>
+                <a th:href="@{/clientes/cadastrar}" class="nav-link active">
+                    <i class="fas fa-user-plus"></i> Novo Cliente
+                </a>
+            </nav>
+        </header>
+
+        <main class="content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 th:text="${cliente.id == null ? 'Cadastro de Cliente' : ''}">Cadastro de Cliente</h2>
+                </div>
+                
+                <div class="form-container">
+                <form th:action="@{${cliente.id == null ? '/clientes/cadastrar' : '/clientes/' + cliente.id}}" 
+      th:object="${cliente}" method="post" class="form">
+                        
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="form-group">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" id="nome" th:field="*{nome}" class="form-input" placeholder="Nome completo" required>
+                            <div class="error-message" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idade" class="form-label">Idade</label>
+                            <input type="number" id="idade" th:field="*{idade}" class="form-input" placeholder="Idade" required min="0">
+                            <div class="error-message" th:if="${#fields.hasErrors('idade')}" th:errors="*{idade}"></div>
+                        </div>
+
+                        <div class="form-actions">
+                            <a th:href="@{/clientes/listar}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2025 Gerenciador de Clientes e Produtos | Lucas T & Willian H</p>
+        </footer>
+    </div>
+</body>
+</html>

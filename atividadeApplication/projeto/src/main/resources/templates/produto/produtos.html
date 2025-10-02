@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos do Cliente</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <main class="main-content">
+        <h1>Produtos do Cliente: <span th:text="${cliente.nome}"></span></h1>
+        
+        <div class="section">
+            <h2>Produtos Associados</h2>
+            <table th:if="${!cliente.produtos.empty}">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="produto : ${cliente.produtos}">
+                        <td th:text="${produto.id}"></td>
+                        <td th:text="${produto.nome}"></td>
+                        <td th:text="${produto.quantidade}"></td>
+                        <td th:text="${produto.valor}"></td>
+                        <td>
+                            <form th:action="@{/clientes/{clienteId}/remover-produto/{produtoId}(clienteId=${cliente.id}, produtoId=${produto.id})}" method="post">
+                                <button type="submit" class="botao">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p th:if="${cliente.produtos.empty}">Este cliente não possui produtos associados.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Adicionar Produtos</h2>
+            <table th:if="${!produtosDisponiveis.empty}">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="produto : ${produtosDisponiveis}">
+                        <td th:text="${produto.id}"></td>
+                        <td th:text="${produto.nome}"></td>
+                        <td th:text="${produto.quantidade}"></td>
+                        <td th:text="${produto.valor}"></td>
+                        <td>
+                            <form th:action="@{/clientes/{clienteId}/adicionar-produto/{produtoId}(clienteId=${cliente.id}, produtoId=${produto.id})}" method="post">
+                                <button type="submit" class="botao">Adicionar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p th:if="${produtosDisponiveis.empty}">Não há produtos disponíveis para adicionar.</p>
+        </div>
+        
+        <div class="buttons">
+            <a th:href="@{/clientes/{id}(id=${cliente.id})}" class="botao">Voltar para Detalhes</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Lucas T & Willian H/p>
+    </footer>
+</body>
+
+</html>
