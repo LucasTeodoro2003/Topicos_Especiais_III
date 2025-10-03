@@ -210,7 +210,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Forms */
 .form-container {
     padding: 20px;
 }
@@ -253,7 +252,6 @@ body {
     margin-top: 30px;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .app-header, .panel-header, .form-row, .actions {
         flex-direction: column;

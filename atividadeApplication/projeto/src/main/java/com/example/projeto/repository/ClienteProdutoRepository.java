@@ -9,6 +9,5 @@ import java.util.List;
 public interface ClienteProdutoRepository extends JpaRepository<ClienteProduto, Long> {
     List<ClienteProduto> findByClienteId(Long clienteId);
     
-    // Método para deletar pelo clienteId e produtoId
     void deleteByClienteIdAndProdutoId(Long clienteId, Long produtoId);
 }

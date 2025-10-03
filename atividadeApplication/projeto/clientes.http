@@ -1,0 +1,23 @@
+# Definição de variáveis (ambiente “local” do REST Client)
+@base_url = https://sturdy-palm-tree-7w5jx6w9g7wfr6w5-8080.app.github.dev
+
+### Inserir nova pessoa
+POST {{ base_url }}/clientes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Rafael",
+  "idade": 34
+}
+
+### Listar todas os clientes
+GET {{ base_url }}/clientes/listar
+Accept: application/json
+
+### Buscar cliente por ID
+GET {{ base_url }}/clientes/2
+Accept: application/json
+
+### Remover cliente (DELETE)
+DELETE {{ base_url }}/clientes/5
+Accept: */*

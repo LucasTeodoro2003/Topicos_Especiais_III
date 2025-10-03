@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    // Métodos básicos de CRUD já são fornecidos pelo JpaRepository
 }
